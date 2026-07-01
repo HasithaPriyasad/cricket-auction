@@ -1,0 +1,598 @@
+/* ── Admin / Control Room layout ─────────────────────────────────────────── */
+:root {
+  --cr-bg: #0c0f16;
+  --cr-bg2: #141820;
+  --cr-panel: rgba(255,255,255,.05);
+  --cr-brd: rgba(255,255,255,.1);
+  --cr-text: #e9eef9;
+  --cr-dim: rgba(233,238,249,.45);
+  --cr-accent: #f3b327;
+}
+
+.cr {
+  height: 100vh;
+  overflow: hidden;
+  background: var(--cr-bg);
+  color: var(--cr-text);
+  font-family: 'Saira Semi Condensed', 'Saira', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.crTop {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(10,13,20,.95);
+  border-bottom: 1px solid var(--cr-brd);
+  flex-shrink: 0;
+}
+.crBrand { display: flex; align-items: center; gap: 14px; }
+.crMark {
+  width: 28px; height: 28px; border-radius: 6px; transform: rotate(45deg);
+  background: linear-gradient(135deg, var(--cr-accent), #a87000);
+}
+.crBrandTxt b { display: block; font-family: 'Saira Condensed'; font-weight: 800; font-size: 17px; letter-spacing: .05em; line-height: 1; }
+.crBrandTxt span { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cr-dim); }
+.crTopStat { display: flex; align-items: center; gap: 12px; }
+.crPill {
+  display: flex; flex-direction: column; align-items: center; padding: 6px 16px; border-radius: 8px;
+  background: var(--cr-panel); border: 1px solid var(--cr-brd);
+}
+.crPill b { font-family: 'Saira Condensed'; font-weight: 800; font-size: 17px; letter-spacing: .02em; line-height: 1; }
+.crPill span { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--cr-dim); margin-top: 2px; }
+.crConn { display: flex; align-items: center; gap: 8px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--cr-dim); cursor: pointer; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--cr-brd); }
+.crConnDot { width: 8px; height: 8px; border-radius: 50%; background: #37d67a; box-shadow: 0 0 8px #37d67a; }
+.crConnDown { color: #ffb648; }
+.crConnDownDot { background: #ffb648; box-shadow: 0 0 8px #ffb648; }
+.crTopAct { display: flex; align-items: center; gap: 10px; }
+.crGhost {
+  padding: 8px 16px; border-radius: 8px; border: 1px solid var(--cr-brd);
+  background: transparent; color: var(--cr-dim); font-size: 13px; font-weight: 600; letter-spacing: .04em; cursor: pointer;
+  transition: background .15s;
+}
+.crGhost:hover { background: var(--cr-panel); }
+.crOpen {
+  padding: 8px 18px; border-radius: 8px; border: none;
+  background: var(--cr-accent); color: #1a1402; font-size: 14px; font-weight: 700; letter-spacing: .02em; cursor: pointer;
+  position: relative; transition: filter .15s;
+}
+.crOpen:hover { filter: brightness(1.1); }
+.crBadge {
+  position: absolute; top: -6px; right: -8px; width: 18px; height: 18px; border-radius: 50%;
+  background: #ff3b3b; color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center;
+}
+
+/* ── Body ─────────────────────────────────────────────────────────────────── */
+.crBody {
+  flex: 1; display: grid;
+  grid-template-columns: 1fr 400px;
+  grid-template-rows: 1fr;
+  gap: 0;
+  overflow: hidden;
+}
+.crMain {
+  display: flex; flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--cr-brd);
+}
+.crScroll {
+  flex: 1; overflow-y: auto; min-height: 0;
+  display: flex; flex-direction: column; gap: 20px;
+  padding: 24px 24px 8px;
+}
+.crSide {
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── Now auctioning card ─────────────────────────────────────────────────── */
+.crNow {
+  display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start;
+  background: var(--cr-panel); border: 1px solid var(--cr-brd); border-radius: 16px; padding: 22px 26px;
+}
+.crNowKey { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--cr-dim); margin-bottom: 8px; }
+.crNowName { font-family: 'Saira Condensed'; font-weight: 800; font-size: 36px; line-height: 1; display: flex; align-items: center; gap: 10px; }
+.crNowDim { color: var(--cr-dim); font-size: 28px; }
+.crStar { color: var(--cr-accent); font-style: normal; font-size: 20px; }
+.crNowMeta { font-size: 13px; letter-spacing: .04em; color: var(--cr-dim); margin-top: 6px; }
+.crKbd { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 5px; background: rgba(255,255,255,.14); font-family: 'Saira Condensed'; font-weight: 700; font-size: 13px; }
+.crBidK { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cr-dim); margin-bottom: 6px; }
+.crBidV { font-family: 'Saira Condensed'; font-weight: 800; font-size: 42px; line-height: 1; letter-spacing: -.01em; }
+.crBidLead { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--cr-dim); margin-top: 8px; white-space: nowrap; }
+.crLeadDot { width: 10px; height: 10px; border-radius: 50%; background: var(--tc, var(--cr-accent)); flex-shrink: 0; }
+.crStatusChip { padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .08em; margin-left: 8px; }
+.crStatusOnce { background: #ffd24a; color: #241a00; }
+.crStatusTwice { background: #ff9b3d; color: #2a1500; }
+.crStatusFinal { background: #ff3b3b; color: #fff; }
+
+/* ── Section labels ──────────────────────────────────────────────────────── */
+.crSectionKey { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--cr-dim); display: flex; align-items: center; gap: 10px; }
+.crHint { font-size: 12px; font-weight: 400; letter-spacing: .04em; text-transform: none; }
+
+/* ── Team bid grid ───────────────────────────────────────────────────────── */
+.crBidGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.crTeam {
+  display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 12px;
+  border: 1.5px solid color-mix(in srgb,var(--tc) 30%,transparent);
+  background: color-mix(in srgb,var(--tc) 8%,transparent);
+  cursor: pointer; text-align: left; transition: background .15s, border-color .15s, transform .1s;
+}
+.crTeam:hover:not(:disabled) { background: color-mix(in srgb,var(--tc) 16%,transparent); }
+.crTeam:active:not(:disabled) { transform: scale(.98); }
+.crTeam:disabled { opacity: .35; cursor: not-allowed; }
+.crTeamLeading { border-color: var(--tc) !important; box-shadow: 0 0 0 1px var(--tc), 0 8px 24px color-mix(in srgb,var(--tc) 30%,transparent); }
+.crTeamSelected { border-color: color-mix(in srgb,var(--tc) 80%,transparent) !important; }
+.crTeamTop { display: flex; align-items: center; gap: 10px; }
+.crTeamId b { display: block; font-family: 'Saira Condensed'; font-weight: 800; font-size: 18px; }
+.crTeamId i { font-style: normal; font-size: 12px; letter-spacing: .04em; color: var(--cr-dim); }
+.crTeamAct { font-size: 13px; font-weight: 600; letter-spacing: .04em; }
+.crTeamActLead { color: var(--tc); }
+.crTeamActOk { color: var(--cr-text); }
+.crTeamActCant { color: var(--cr-dim); }
+.crTeamRoster { display: flex; gap: 6px; flex-wrap: wrap; }
+.crTeamRoster span { font-size: 11px; font-weight: 700; letter-spacing: .04em; padding: 2px 7px; border-radius: 20px; }
+.crRosterMet { background: color-mix(in srgb,#22c55e 18%,transparent); color: #4ade80; border: 1px solid color-mix(in srgb,#22c55e 35%,transparent); }
+.crRosterPending { background: color-mix(in srgb,#f59e0b 18%,transparent); color: #fbbf24; border: 1px solid color-mix(in srgb,#f59e0b 35%,transparent); }
+
+/* ── Auctioneer actions ──────────────────────────────────────────────────── */
+.crActions { display: flex; flex-wrap: wrap; gap: 10px; }
+.crModeStart { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.crModeNote { font-size: 14px; color: var(--cr-dim); }
+.crModeWarn { font-size: 13px; color: #ff8c8c; }
+.captainCompleteBanner {
+  padding: 10px 16px; border-radius: 10px; font-size: 14px; font-weight: 700;
+  background: rgba(55,214,122,.12); color: #37d67a; border: 1px solid rgba(55,214,122,.3);
+  margin-bottom: 4px;
+}
+
+/* ── Captain Auction Summary ─────────────────────────────────────────────── */
+.captainSummary {
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid var(--cr-brd); border-radius: 12px; overflow: hidden;
+  background: var(--cr-panel);
+}
+.captainSummaryHeader {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px; background: rgba(55,214,122,.1);
+  border-bottom: 1px solid rgba(55,214,122,.2);
+  font-weight: 700; font-size: 15px; color: #37d67a;
+}
+.captainSummaryBadge {
+  font-size: 12px; font-weight: 600; color: rgba(55,214,122,.7);
+}
+.captainSummaryBody { display: flex; flex-direction: column; overflow-y: auto; max-height: 340px; }
+.captainSummarySection { padding: 12px 18px; border-bottom: 1px solid var(--cr-brd); display: flex; flex-direction: column; gap: 6px; }
+.captainSummarySection:last-child { border-bottom: none; }
+.captainSummarySectionTitle {
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--cr-dim); font-weight: 600; margin-bottom: 4px;
+}
+.captainResultRow { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.captainResultRowUnsold { opacity: .65; }
+.captainResultPlayer { font-weight: 600; flex: 1; }
+.captainResultArrow { color: var(--cr-dim); }
+.captainResultTeam { font-weight: 700; flex: 1; }
+.captainResultPrice { font-size: 12px; color: var(--cr-dim); margin-left: auto; }
+.captainTeamGrid { display: flex; flex-direction: column; gap: 4px; }
+.captainTeamRow { display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 4px 0; }
+.captainTeamOk .captainTeamMark { color: #37d67a; font-weight: 700; }
+.captainTeamMissing .captainTeamMark { color: #ff8c8c; font-weight: 700; }
+.captainTeamName { font-weight: 700; }
+.captainTeamCaptainName { font-size: 12px; color: var(--cr-dim); margin-left: 4px; }
+.captainWarning {
+  padding: 10px 18px; font-size: 13px; font-weight: 600;
+  background: rgba(255,140,0,.1); color: #ffaa33;
+  border-top: 1px solid rgba(255,140,0,.25);
+}
+.captainSummaryFooter { padding: 12px 18px; border-top: 1px solid var(--cr-brd); }
+.captainSummaryFooterNote { font-size: 11px; font-weight: 500; margin-left: 8px; opacity: .8; }
+.crAct {
+  display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px; border-radius: 11px;
+  border: 1px solid var(--cr-brd); background: var(--cr-panel); color: var(--cr-text);
+  font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: .02em; cursor: pointer; white-space: nowrap;
+  transition: background .15s, transform .1s;
+}
+.crAct:hover:not(:disabled) { background: rgba(255,255,255,.12); }
+.crAct:active:not(:disabled) { transform: translateY(1px); }
+.crAct:disabled { opacity: .32; cursor: not-allowed; }
+.crActSold { background: #37d67a; color: #04130a; border-color: transparent; font-weight: 700; }
+.crActSold:hover:not(:disabled) { filter: brightness(1.1); }
+.crActDanger { background: rgba(255,77,77,.14); border-color: rgba(255,77,77,.4); color: #ff8c8c; }
+.crActGo { background: var(--cr-accent); color: #1a1402; border-color: transparent; font-weight: 700; }
+.crActGo:hover:not(:disabled) { filter: brightness(1.1); }
+.crActRevert { border-color: rgba(243,179,39,.35); color: #f3b327; font-size: 12px; }
+.crActRevert:hover:not(:disabled) { background: rgba(243,179,39,.1); border-color: rgba(243,179,39,.6); }
+
+/* ── Secret Bid Panel ─────────────────────────────────────────────────────── */
+.secretPanel { display: flex; flex-direction: column; gap: 10px; }
+.secretHeader { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.secretBadge { background: rgba(243,179,39,.18); border: 1px solid rgba(243,179,39,.5); color: var(--cr-accent); font-size: 11px; font-weight: 800; letter-spacing: .18em; padding: 4px 12px; border-radius: 6px; text-transform: uppercase; }
+.secretFloor { font-size: 14px; color: var(--cr-dim); }
+.secretFloor strong { color: var(--cr-text); }
+.secretExitBtn { margin-left: auto; padding: 6px 14px; border-radius: 8px; border: 1px solid var(--cr-brd); background: transparent; color: var(--cr-dim); font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer; }
+.secretExitBtn:hover { background: var(--cr-panel); color: var(--cr-text); }
+.secretGrid { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.secretTeamRow { display: grid; grid-template-columns: 1fr 160px auto; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; border: 1px solid color-mix(in srgb,var(--tc) 25%,transparent); background: color-mix(in srgb,var(--tc) 6%,transparent); }
+.secretTeamInfo { display: flex; align-items: center; gap: 10px; }
+.secretTeamDot { width: 10px; height: 32px; border-radius: 3px; flex-shrink: 0; }
+.secretTeamName { font-family: 'Saira Condensed'; font-weight: 800; font-size: 16px; }
+.secretTeamRem { font-size: 11px; color: var(--cr-dim); }
+.secretInput { width: 100%; padding: 7px 10px; background: var(--cr-bg2); border: 1px solid var(--cr-brd); border-radius: 8px; color: var(--cr-text); font-family: inherit; font-size: 14px; font-weight: 700; outline: none; font-variant-numeric: tabular-nums; }
+.secretInput:focus { border-color: var(--cr-accent); }
+.secretInputInvalid { border-color: rgba(255,77,77,.6) !important; }
+.secretAwardBtn { white-space: nowrap; }
+
+/* ── Footer controls ─────────────────────────────────────────────────────── */
+.crFoot { display: flex; flex-wrap: wrap; gap: 16px; padding: 12px 24px; border-top: 1px solid var(--cr-brd); align-items: center; flex-shrink: 0; }
+.crFootGrp { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.crFootKey { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--cr-dim); }
+.crSeg {
+  height: 34px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--cr-brd);
+  background: transparent; color: var(--cr-text); font-size: 13px; font-weight: 600; cursor: pointer; transition: background .15s;
+}
+.crSeg:hover { background: var(--cr-panel); }
+.crSegOn { background: var(--cr-text) !important; color: #0a0d14; border-color: transparent; }
+.crTgl {
+  height: 34px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--cr-brd);
+  background: transparent; color: var(--cr-dim); font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background .15s;
+}
+.crTgl[data-on="1"] { background: var(--cr-panel); color: var(--cr-text); }
+.crTglSw { width: 32px; height: 18px; border-radius: 9px; background: rgba(255,255,255,.15); position: relative; transition: background .2s; }
+.crTgl[data-on="1"] .crTglSw { background: #37d67a; }
+.crTglSw::after { content: ''; position: absolute; left: 2px; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.crTgl[data-on="1"] .crTglSw::after { transform: translateX(14px); }
+.crVol { width: 90px; accent-color: var(--cr-accent); }
+
+/* ── Preview panel ───────────────────────────────────────────────────────── */
+.crPreview { display: flex; flex-direction: column; border-bottom: 1px solid var(--cr-brd); }
+.crPreviewBar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; font-size: 12px; letter-spacing: .08em; color: var(--cr-dim);
+}
+.crPreviewLive { display: flex; align-items: center; gap: 7px; }
+.crPreviewLiveDot { width: 7px; height: 7px; border-radius: 50%; background: #ff3b3b; box-shadow: 0 0 8px #ff3b3b; animation: blink 1.4s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.crPreviewPop { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--cr-brd); background: transparent; color: var(--cr-dim); font-size: 11px; cursor: pointer; }
+.crPreviewFrame { flex: 1; position: relative; aspect-ratio: 16/9; background: #000; }
+.crPreviewFrame iframe { width: 100%; height: 100%; border: none; }
+
+/* ── Timeline ────────────────────────────────────────────────────────────── */
+.crTimeline { flex: 1; display: flex; flex-direction: column; padding: 16px; overflow: hidden; }
+.crTlKey { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cr-dim); margin-bottom: 12px; }
+.crTlList { flex: 1; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; }
+.crTlEmpty { font-size: 13px; color: var(--cr-dim); padding: 8px 0; }
+.crTlRow { display: grid; grid-template-columns: 60px 10px 1fr; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px; font-size: 13px; }
+.crTlTime { font-family: 'Saira Condensed'; font-weight: 600; font-size: 13px; color: var(--cr-dim); font-variant-numeric: tabular-nums; }
+.crTlDot { width: 8px; height: 8px; border-radius: 50%; background: var(--cr-brd); }
+.crTlRowBid .crTlDot { background: var(--tc, var(--cr-accent)); box-shadow: 0 0 6px var(--tc, var(--cr-accent)); }
+.crTlRowSold .crTlDot { background: #37d67a; box-shadow: 0 0 6px #37d67a; }
+.crTlRowUnsold .crTlDot { background: #ff6b6b; }
+.crTlText { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── Tweaks panel ─────────────────────────────────────────────────────────── */
+.tweaksPanel {
+  position: fixed; right: 0; top: 0; bottom: 0; width: 280px; z-index: 100;
+  background: rgba(10,13,20,.97); border-left: 1px solid var(--cr-brd);
+  display: flex; flex-direction: column; transform: translateX(100%); transition: transform .25s;
+}
+.tweaksPanelOpen { transform: none; }
+.tweaksHandle {
+  position: absolute; left: -40px; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 64px; border-radius: 12px 0 0 12px;
+  background: rgba(10,13,20,.97); border: 1px solid var(--cr-brd); border-right: none;
+  display: grid; place-items: center; cursor: pointer; font-size: 18px; color: var(--cr-dim);
+}
+.tweaksTitle { padding: 18px 20px 14px; font-family: 'Saira Condensed'; font-weight: 800; font-size: 18px; letter-spacing: .04em; border-bottom: 1px solid var(--cr-brd); }
+.tweaksBody { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.tweakSection { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--cr-dim); padding-top: 8px; }
+.tweakRow { display: flex; flex-direction: column; gap: 6px; }
+.tweakLabel { font-size: 12px; letter-spacing: .06em; color: var(--cr-dim); }
+.tweakSelect {
+  width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--cr-brd);
+  background: var(--cr-panel); color: var(--cr-text); font-family: inherit; font-size: 13px; cursor: pointer;
+}
+.tweakInput {
+  width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--cr-brd);
+  background: var(--cr-panel); color: var(--cr-text); font-family: inherit; font-size: 13px; outline: none;
+  box-sizing: border-box;
+}
+.tweakInput:focus { border-color: rgba(255,255,255,.35); }
+.tweakRuleGrid { display: flex; flex-direction: column; gap: 5px; }
+.tweakRuleHdrs { display: grid; grid-template-columns: 1fr 1fr 24px; gap: 6px; }
+.tweakRuleHdr { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--cr-dim); }
+.tweakRuleRow { display: grid; grid-template-columns: 1fr 1fr 24px; gap: 6px; align-items: center; }
+.tweakRuleRemove {
+  width: 24px; height: 24px; border-radius: 5px; border: 1px solid rgba(255,77,77,.3);
+  background: transparent; color: #ff8c8c; font-size: 14px; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.tweakAddRule {
+  margin-top: 4px; padding: 6px 10px; border-radius: 7px; border: 1px dashed var(--cr-brd);
+  background: transparent; color: var(--cr-dim); font-family: inherit; font-size: 12px;
+  cursor: pointer; width: 100%; text-align: left; transition: border-color .15s, color .15s;
+}
+.tweakAddRule:hover { border-color: rgba(255,255,255,.3); color: var(--cr-text); }
+.tweakFileBtn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px;
+  border-radius: 8px; border: 1px solid var(--cr-brd); background: var(--cr-panel);
+  color: var(--cr-text); font-family: inherit; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: background .15s;
+}
+.tweakFileBtn:hover { background: rgba(255,255,255,.08); }
+.tweakLogoRow { display: flex; align-items: center; gap: 10px; }
+.tweakLogoPreview { width: 32px; height: 32px; border-radius: 6px; object-fit: contain; border: 1px solid var(--cr-brd); }
+.tweakClearBtn {
+  padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(255,77,77,.3);
+  background: transparent; color: #ff8c8c; font-size: 11px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+}
+.tweakColors { display: flex; gap: 6px; flex-wrap: wrap; }
+.tweakColorSwatch {
+  width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform .15s, border-color .15s;
+}
+.tweakColorSwatchActive { border-color: #fff; transform: scale(1.15); }
+.tweakRadioGroup { display: flex; gap: 6px; flex-wrap: wrap; }
+.tweakRadioBtn {
+  padding: 6px 12px; border-radius: 7px; border: 1px solid var(--cr-brd);
+  background: transparent; color: var(--cr-text); font-size: 12px; font-weight: 600; cursor: pointer; transition: background .15s;
+}
+.tweakRadioBtnActive { background: var(--cr-panel); border-color: rgba(255,255,255,.3); }
+.tweakToggleRow { display: flex; justify-content: space-between; align-items: center; }
+.tweakToggle { width: 40px; height: 22px; border-radius: 11px; background: rgba(255,255,255,.12); border: none; position: relative; cursor: pointer; transition: background .2s; padding: 0; }
+.tweakToggleOn { background: #37d67a; }
+.tweakToggle::after { content: ''; position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.tweakToggleOn::after { transform: translateX(18px); }
+.tweakBtn {
+  width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--cr-brd);
+  background: rgba(255,77,77,.1); border-color: rgba(255,77,77,.3); color: #ff8c8c;
+  font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; transition: background .15s;
+}
+.tweakBtn:hover { background: rgba(255,77,77,.2); }
+.tweakBtnDanger {
+  width: 100%; padding: 10px; border-radius: 8px;
+  background: rgba(255,77,77,.22); border: 1px solid rgba(255,77,77,.55); color: #ff6b6b;
+  font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; transition: background .15s;
+}
+.tweakBtnDanger:hover { background: rgba(255,77,77,.35); }
+
+/* ── Panel nav tabs ──────────────────────────────────────────────────────── */
+.panelNav { display: flex; align-items: center; gap: 4px; }
+.panelTab {
+  height: 36px; padding: 0 16px; border-radius: 8px; border: 1px solid transparent;
+  background: transparent; color: var(--cr-dim); font-family: inherit; font-size: 13px;
+  font-weight: 600; letter-spacing: .04em; cursor: pointer; transition: background .15s, color .15s;
+}
+.panelTab:hover { background: var(--cr-panel); color: var(--cr-text); }
+.panelTabActive { background: var(--cr-panel) !important; color: var(--cr-text) !important; border-color: var(--cr-brd); }
+
+/* ── CRUD panel shell ────────────────────────────────────────────────────── */
+.crudPanel {
+  flex: 1; display: grid; grid-template-columns: 340px 1fr; overflow: hidden;
+  border-top: 1px solid var(--cr-brd);
+}
+.crudList { border-right: 1px solid var(--cr-brd); display: flex; flex-direction: column; overflow: hidden; }
+.crudListHeader {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-bottom: 1px solid var(--cr-brd); flex-shrink: 0;
+}
+.crudListTitle { font-family: 'Saira Condensed'; font-weight: 800; font-size: 16px; letter-spacing: .04em; }
+.crudSearch { display: block; width: 100%; padding: 8px 12px; background: var(--cr-bg2); border: 1px solid var(--cr-brd); border-radius: 8px; color: var(--cr-text); font-family: inherit; font-size: 13px; outline: none; flex-shrink: 0; margin: 0 18px 10px; width: calc(100% - 36px); }
+.crudSearch:focus { border-color: var(--cr-accent); }
+.crudSearch::placeholder { color: var(--cr-dim); }
+.crudAddBtn {
+  height: 32px; padding: 0 14px; border-radius: 8px; border: none;
+  background: var(--cr-accent); color: #1a1402; font-family: inherit; font-size: 12px;
+  font-weight: 700; letter-spacing: .04em; cursor: pointer; transition: filter .15s;
+}
+.crudAddBtn:hover { filter: brightness(1.1); }
+.crudListScroll { flex: 1; overflow-y: auto; }
+.crudItem {
+  display: flex; align-items: center; gap: 12px; padding: 12px 18px;
+  border-bottom: 1px solid var(--cr-brd); cursor: pointer; transition: background .15s;
+}
+.crudItem:hover { background: var(--cr-panel); }
+.crudItemActive { background: color-mix(in srgb, var(--cr-accent) 10%, transparent) !important; border-left: 3px solid var(--cr-accent); }
+.crudItemColor { width: 10px; height: 32px; border-radius: 3px; flex-shrink: 0; }
+.crudItemBody { flex: 1; min-width: 0; }
+.crudItemName { font-family: 'Saira Condensed'; font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.crudItemSub { font-size: 12px; color: var(--cr-dim); margin-top: 2px; letter-spacing: .02em; }
+.crudItemBadge { font-size: 11px; font-weight: 700; letter-spacing: .1em; padding: 3px 8px; border-radius: 5px; background: var(--cr-panel); color: var(--cr-dim); }
+.crudItemBadgeCaptain { font-size: 11px; font-weight: 800; letter-spacing: .06em; padding: 3px 7px; border-radius: 5px; background: rgba(243,179,39,.18); color: var(--cr-accent); border: 1px solid rgba(243,179,39,.35); }
+
+/* ── CRUD form area ──────────────────────────────────────────────────────── */
+.crudForm { display: flex; flex-direction: column; overflow-y: auto; }
+.crudFormInner { padding: 28px 32px; display: flex; flex-direction: column; gap: 20px; max-width: 640px; }
+.crudFormTitle { font-family: 'Saira Condensed'; font-weight: 900; font-size: 28px; }
+.crudFormEmpty { flex: 1; display: flex; align-items: center; justify-content: center; color: var(--cr-dim); font-size: 15px; }
+
+.fieldGroup { display: flex; flex-direction: column; gap: 6px; }
+.fieldLabel { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cr-dim); }
+.fieldInput {
+  height: 42px; padding: 0 14px; border-radius: 9px; border: 1px solid var(--cr-brd);
+  background: var(--cr-panel); color: var(--cr-text); font-family: inherit; font-size: 14px;
+  outline: none; transition: border-color .15s;
+}
+.fieldInput:focus { border-color: var(--cr-accent); }
+.fieldRow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fieldRow3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.fieldSelect {
+  height: 42px; padding: 0 14px; border-radius: 9px; border: 1px solid var(--cr-brd);
+  background: var(--cr-bg2); color: var(--cr-text); font-family: inherit; font-size: 14px; cursor: pointer;
+}
+.fieldColorRow { display: flex; align-items: center; gap: 12px; }
+.fieldColorPreview { width: 36px; height: 36px; border-radius: 8px; border: 2px solid var(--cr-brd); flex-shrink: 0; }
+.fieldColorInput { height: 42px; flex: 1; }
+
+.statsBlock { display: flex; flex-direction: column; gap: 8px; }
+.statsBlockTitle { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cr-dim); }
+.statRow { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: center; }
+.statRemoveBtn {
+  width: 32px; height: 32px; border-radius: 7px; border: 1px solid var(--cr-brd);
+  background: transparent; color: var(--cr-dim); font-size: 18px; cursor: pointer; line-height: 1;
+  display: grid; place-items: center; transition: background .15s, color .15s;
+}
+.statRemoveBtn:hover { background: rgba(255,77,77,.15); color: #ff8c8c; }
+.addStatBtn {
+  align-self: flex-start; height: 34px; padding: 0 14px; border-radius: 8px; border: 1px dashed var(--cr-brd);
+  background: transparent; color: var(--cr-dim); font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer; transition: border-color .15s, color .15s;
+}
+.addStatBtn:hover { border-color: var(--cr-accent); color: var(--cr-text); }
+
+.photoSection { display: flex; flex-direction: column; gap: 8px; }
+.photoPreviewRow { display: flex; align-items: center; gap: 12px; }
+.photoPreview {
+  width: 64px; height: 64px; border-radius: 10px; object-fit: cover;
+  border: 1px solid var(--cr-brd); flex-shrink: 0; background: rgba(255,255,255,.04);
+}
+.photoPlaceholder {
+  width: 64px; height: 64px; border-radius: 10px; border: 1px dashed var(--cr-brd);
+  display: grid; place-items: center; color: var(--cr-dim); font-size: 22px; flex-shrink: 0;
+}
+.photoActions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.photoUploadBtn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+  border-radius: 8px; border: 1px solid var(--cr-brd); background: var(--cr-panel);
+  color: var(--cr-text); font-family: inherit; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: background .15s;
+}
+.photoUploadBtn:hover { background: rgba(255,255,255,.08); }
+.photoRemoveBtn {
+  padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(255,77,77,.3);
+  background: transparent; color: #ff8c8c; font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit; transition: background .15s;
+}
+.photoRemoveBtn:hover { background: rgba(255,77,77,.1); }
+.photoUrlSep { font-size: 11px; color: var(--cr-dim); letter-spacing: .12em; }
+
+.formActions { display: flex; gap: 10px; padding-top: 8px; border-top: 1px solid var(--cr-brd); }
+.saveBtn {
+  height: 42px; padding: 0 24px; border-radius: 9px; border: none;
+  background: var(--cr-accent); color: #1a1402; font-family: inherit; font-size: 14px;
+  font-weight: 700; cursor: pointer; transition: filter .15s;
+}
+.saveBtn:hover { filter: brightness(1.1); }
+.saveBtn:disabled { opacity: .45; cursor: not-allowed; }
+.deleteBtn {
+  height: 42px; padding: 0 20px; border-radius: 9px;
+  border: 1px solid rgba(255,77,77,.35); background: rgba(255,77,77,.08);
+  color: #ff8c8c; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s; margin-left: auto;
+}
+.deleteBtn:hover { background: rgba(255,77,77,.18); }
+.saveStatus { font-size: 13px; color: #37d67a; align-self: center; }
+.saveError { font-size: 13px; color: #ff8c8c; align-self: center; }
+
+/* ── Results / reporting panel ───────────────────────────────────────────── */
+.resultsPanel { flex: 1; padding: 28px 32px; overflow-y: auto; display: flex; flex-direction: column; gap: 24px; }
+.resultsHeader { display: flex; align-items: flex-end; justify-content: space-between; }
+.resultsTitle { font-family: 'Saira Condensed'; font-weight: 900; font-size: 32px; }
+.exportBtns { display: flex; gap: 10px; }
+.exportBtn {
+  display: inline-flex; align-items: center; text-decoration: none;
+  height: 38px; padding: 0 18px; border-radius: 9px; border: 1px solid var(--cr-brd);
+  background: var(--cr-panel); color: var(--cr-text); font-family: inherit; font-size: 13px;
+  font-weight: 600; cursor: pointer; transition: background .15s;
+}
+.exportBtn:hover { background: rgba(255,255,255,.12); }
+.statsGrid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.phaseBreakdown { display: flex; flex-direction: column; gap: 18px; }
+.phaseGroup { }
+.phaseGroupLabel { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--cr-dim); margin-bottom: 8px; font-weight: 700; }
+.phaseStatsGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.statCard { background: var(--cr-panel); border: 1px solid var(--cr-brd); border-radius: 12px; padding: 18px 20px; }
+.statCardV { font-family: 'Saira Condensed'; font-weight: 900; font-size: 36px; color: var(--cr-accent); line-height: 1; }
+.statCardK { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--cr-dim); margin-top: 8px; }
+.resultsTable { width: 100%; border-collapse: collapse; }
+.resultsTable th { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--cr-dim); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--cr-brd); }
+.resultsTable td { padding: 11px 14px; border-bottom: 1px solid color-mix(in srgb, var(--cr-brd) 50%, transparent); font-size: 14px; }
+.resultsTable tr:hover td { background: var(--cr-panel); }
+.resultTeamDot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: middle; }
+.resultSoldBadge { background: rgba(55,214,122,.15); color: #37d67a; border: 1px solid rgba(55,214,122,.35); padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+.resultUnsoldBadge { background: rgba(255,107,107,.1); color: #ff8c8c; border: 1px solid rgba(255,107,107,.3); padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+.resultLiveBadge { background: rgba(255,175,50,.14); color: #ffaf32; border: 1px solid rgba(255,175,50,.4); padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+.resultUpcomingBadge { background: transparent; color: var(--cr-dim); border: 1px solid var(--cr-brd); padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+.resultUpcomingDivider { padding: 7px 14px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--cr-dim); background: var(--cr-panel); border-bottom: 1px solid var(--cr-brd); }
+.captainResultsAdminGrid { display: flex; flex-direction: column; gap: 6px; }
+.captainResultsAdminTeam { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; background: var(--cr-panel); border: 1px solid var(--cr-brd); font-size: 14px; }
+.captainResultsAdminTeamOk { border-color: rgba(55,214,122,.3); background: rgba(55,214,122,.06); }
+.captainResultsAdminTeamMissing { opacity: .6; }
+.captainResultsAdminMark { font-weight: 900; font-size: 16px; width: 18px; text-align: center; }
+.captainResultsAdminTeamOk .captainResultsAdminMark { color: #37d67a; }
+.captainResultsAdminTeamMissing .captainResultsAdminMark { color: #ff8c8c; }
+
+/* ── Config panel ─────────────────────────────────────────────────────────── */
+.configPanel { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.configBody { flex: 1; overflow-y: auto; padding: 32px 40px; display: flex; flex-direction: column; gap: 40px; }
+.configSection { display: flex; flex-direction: column; gap: 20px; }
+.configSectionTitle { font-family: 'Saira Condensed'; font-weight: 800; font-size: 22px; letter-spacing: .04em; margin: 0; border-bottom: 1px solid var(--cr-brd); padding-bottom: 12px; }
+.configHint { font-size: 13px; color: var(--cr-dim); margin: 0; }
+.configGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; }
+.configField { display: flex; flex-direction: column; gap: 8px; }
+.configLabel { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--cr-dim); font-weight: 600; }
+.configToggleRow { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.configToggleLabel { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+.configToggleDesc { font-size: 13px; color: var(--cr-dim); max-width: 480px; }
+.configInput {
+  padding: 10px 14px; border-radius: 9px; border: 1px solid var(--cr-brd);
+  background: var(--cr-panel); color: var(--cr-text); font-family: inherit; font-size: 14px;
+  outline: none; box-sizing: border-box; width: 100%;
+}
+.configInput:focus { border-color: rgba(255,255,255,.35); }
+.configLogoRow { display: flex; align-items: center; gap: 10px; }
+.configLogoPreview { width: 48px; height: 48px; border-radius: 8px; object-fit: contain; border: 1px solid var(--cr-brd); }
+.configFileBtn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+  border-radius: 8px; border: 1px solid var(--cr-brd); background: var(--cr-panel);
+  color: var(--cr-text); font-family: inherit; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: background .15s;
+}
+.configFileBtn:hover { background: rgba(255,255,255,.08); }
+.configClearBtn {
+  padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(255,77,77,.3);
+  background: transparent; color: #ff8c8c; font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+}
+.configRuleTable { display: flex; flex-direction: column; gap: 6px; max-width: 480px; }
+.configRuleHeader { display: grid; grid-template-columns: 1fr 1fr 36px; gap: 8px; padding: 0 4px; }
+.configRuleHeader span { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--cr-dim); }
+.configRuleRow { display: grid; grid-template-columns: 1fr 1fr 36px; gap: 8px; align-items: center; }
+.configRuleRemove {
+  width: 32px; height: 32px; border-radius: 7px; border: 1px solid rgba(255,77,77,.3);
+  background: transparent; color: #ff8c8c; font-size: 16px; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.configRuleRemove:disabled { opacity: .3; cursor: not-allowed; }
+.configAddRule {
+  margin-top: 2px; padding: 8px 12px; border-radius: 8px; border: 1px dashed var(--cr-brd);
+  background: transparent; color: var(--cr-dim); font-family: inherit; font-size: 13px;
+  cursor: pointer; width: fit-content; transition: border-color .15s, color .15s;
+}
+.configAddRule:hover { border-color: rgba(255,255,255,.3); color: var(--cr-text); }
+.configFooter {
+  flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; gap: 16px;
+  padding: 16px 40px; border-top: 1px solid var(--cr-brd);
+}
+.configSaveBtn {
+  height: 44px; padding: 0 32px; border-radius: 10px; border: none;
+  background: var(--cr-accent); color: #1a1402; font-family: inherit;
+  font-size: 15px; font-weight: 700; letter-spacing: .02em; cursor: pointer; transition: filter .15s;
+}
+.configSaveBtn:hover { filter: brightness(1.1); }
+.configSavedBadge { font-size: 14px; font-weight: 600; color: #37d67a; }
+
+/* ── TweaksPanel save row ─────────────────────────────────────────────────── */
+.tweakSaveRow { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 4px; }
+.tweakSaveBtn {
+  flex: 1; height: 38px; border-radius: 9px; border: none;
+  background: var(--cr-accent); color: #1a1402; font-family: inherit;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: filter .15s;
+}
+.tweakSaveBtn:hover { filter: brightness(1.1); }
+.tweakSavedBadge { font-size: 12px; font-weight: 600; color: #37d67a; white-space: nowrap; }
+.tweakActionMsg { font-size: 11px; font-weight: 600; margin-top: 4px; }
+.tweakActionMsgOk { color: #37d67a; }
+.tweakActionMsgErr { color: #ff5c5c; }

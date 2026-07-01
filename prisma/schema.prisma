@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ── App config (singleton row, id=1) ─────────────────────────────────────────
+
+model Config {
+  id   Int  @id @default(1)
+  data Json
+}
+
+// ── Teams ─────────────────────────────────────────────────────────────────────
+
+model Team {
+  id           String   @id @default(cuid())
+  name         String
+  short        String   @unique
+  abbreviation String
+  color        String
+  budget       Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  auctionTeams AuctionTeam[]
+}
+
+// ── Players ───────────────────────────────────────────────────────────────────
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String
+  country   String
+  age       Int
+  jerseyNum Int
+  basePrice Int
+  tag       String   @default("")
+  category  String   @default("player")
+  gender    String   @default("male")
+  photoUrl  String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  stats PlayerStat[]
+  lots  AuctionLot[]
+}
+
+model PlayerStat {
+  id        Int    @id @default(autoincrement())
+  playerId  Int
+  label     String
+  value     String
+  sortOrder Int    @default(0)
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+}
+
+// ── Auctions ──────────────────────────────────────────────────────────────────
+
+model Auction {
+  id          String    @id @default(cuid())
+  name        String    @default("Auction")
+  status      String    @default("pending")
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  lots   AuctionLot[]
+  teams  AuctionTeam[]
+  events AuctionEvent[]
+}
+
+model AuctionLot {
+  id         Int     @id @default(autoincrement())
+  auctionId  String
+  playerId   Int
+  lotNumber  Int
+  status     String  @default("pending")
+  soldTo     String?
+  finalPrice Int?
+
+  auction Auction @relation(fields: [auctionId], references: [id], onDelete: Cascade)
+  player  Player  @relation(fields: [playerId], references: [id])
+  bids    Bid[]
+
+  @@unique([auctionId, playerId])
+  @@unique([auctionId, lotNumber])
+}
+
+model AuctionTeam {
+  id        Int    @id @default(autoincrement())
+  auctionId String
+  teamId    String
+  spent     Int    @default(0)
+
+  auction Auction @relation(fields: [auctionId], references: [id], onDelete: Cascade)
+  team    Team    @relation(fields: [teamId], references: [id])
+
+  @@unique([auctionId, teamId])
+}
+
+// ── Bids ──────────────────────────────────────────────────────────────────────
+
+model Bid {
+  id       Int      @id @default(autoincrement())
+  lotId    Int
+  teamId   String
+  amount   Int
+  placedAt DateTime @default(now())
+
+  lot AuctionLot @relation(fields: [lotId], references: [id], onDelete: Cascade)
+
+  @@index([lotId])
+  @@index([teamId])
+}
+
+// ── Auction Events (timeline) ─────────────────────────────────────────────────
+
+model AuctionEvent {
+  id         Int      @id @default(autoincrement())
+  auctionId  String
+  kind       String
+  text       String
+  teamId     String?
+  simMin     Int
+  occurredAt DateTime @default(now())
+
+  auction Auction @relation(fields: [auctionId], references: [id], onDelete: Cascade)
+
+  @@index([auctionId])
+}

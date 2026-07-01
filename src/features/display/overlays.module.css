@@ -1,0 +1,116 @@
+@keyframes overFade { from{opacity:0} to{opacity:1} }
+@keyframes soldBanner { from{opacity:0;transform:scale(.7)} to{opacity:1;transform:none} }
+@keyframes flood { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+@keyframes spin { to{transform:translate(-50%,-50%) rotate(360deg)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+@keyframes stamp { from{opacity:0;transform:rotate(-9deg) scale(1.4)} to{opacity:1;transform:rotate(-9deg) scale(1)} }
+@keyframes breathe { 0%,100%{opacity:1} 50%{opacity:.6} }
+
+/* ── Shared overlay shell ─────────────────────────────────────────────────── */
+.overlay {
+  position: absolute; inset: 0; z-index: 50;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+/* ── SOLD ─────────────────────────────────────────────────────────────────── */
+.sold {
+  background: radial-gradient(80% 80% at 50% 45%, color-mix(in srgb,var(--tc) 38%,#05070d), #05070d 78%);
+  animation: overFade .3s;
+  overflow: hidden;
+}
+.soldFlood {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 48%, color-mix(in srgb,var(--tc) 55%,transparent), transparent 60%);
+  animation: flood .7s cubic-bezier(.2,.8,.2,1) both;
+}
+.soldRays {
+  position: absolute; width: 2400px; height: 2400px; left: 50%; top: 48%;
+  transform: translate(-50%,-50%); opacity: .16;
+  background: repeating-conic-gradient(from 0deg, var(--tc) 0 6deg, transparent 6deg 18deg);
+  animation: spin 22s linear infinite;
+}
+.soldInner { position: relative; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.soldBanner {
+  font-family: var(--font-display); font-weight: 900; font-size: 280px; line-height: .82; letter-spacing: .02em;
+  color: var(--tc); text-shadow: 0 0 70px color-mix(in srgb,var(--tc) 80%,transparent);
+  -webkit-text-stroke: 2px color-mix(in srgb,#fff 30%,transparent);
+  animation: soldBanner .6s cubic-bezier(.16,1.1,.3,1) both;
+}
+.soldPlayer { font-family: var(--font-display); font-weight: 800; font-size: 62px; margin-top: 6px; white-space: nowrap; animation: fadeUp .5s .25s both; }
+.soldTo { display: flex; align-items: center; gap: 20px; margin-top: 30px; animation: fadeUp .5s .4s both; }
+.soldToTxt { display: flex; flex-direction: column; align-items: flex-start; }
+.soldToLbl { font-weight: 600; font-size: 20px; letter-spacing: .24em; text-transform: uppercase; color: var(--text-dim); }
+.soldToName { font-family: var(--font-display); font-weight: 800; font-size: 48px; white-space: nowrap; }
+.soldPrice {
+  font-family: var(--font-display); font-weight: 900; font-size: 96px; margin-top: 26px;
+  color: var(--tc); text-shadow: 0 0 50px color-mix(in srgb,var(--tc) 70%,transparent);
+  white-space: nowrap; animation: soldBanner .55s .55s both; font-variant-numeric: tabular-nums;
+}
+
+/* ── UNSOLD ───────────────────────────────────────────────────────────────── */
+.unsold { background: rgba(5,7,13,.92); animation: overFade .3s; }
+.unsoldStamp {
+  font-family: var(--font-display); font-weight: 900; font-size: 200px;
+  color: #ff4d4d; border: 14px solid #ff4d4d; padding: 6px 46px 18px; border-radius: 20px;
+  transform: rotate(-9deg); letter-spacing: .04em; box-shadow: 0 0 50px rgba(255,77,77,.4);
+  animation: stamp .45s cubic-bezier(.2,1.4,.4,1) both;
+}
+.unsoldPlayer { font-family: var(--font-display); font-weight: 800; font-size: 54px; margin-top: 40px; animation: fadeUp .5s .2s both; }
+.unsoldSub { font-weight: 600; font-size: 22px; color: var(--text-dim); margin-top: 10px; letter-spacing: .06em; animation: fadeUp .5s .3s both; }
+
+/* ── PAUSED ───────────────────────────────────────────────────────────────── */
+.paused { background: rgba(5,7,13,.86); backdrop-filter: blur(6px); }
+.pausedInner { display: flex; align-items: center; gap: 24px; font-family: var(--font-display); font-weight: 900; font-size: 80px; color: var(--text); }
+.pausedBars { display: flex; gap: 14px; }
+.pausedBar { width: 26px; height: 80px; border-radius: 7px; background: var(--liveaccent); box-shadow: 0 0 30px var(--glow); }
+
+/* ── SUMMARY ──────────────────────────────────────────────────────────────── */
+.summary {
+  background: var(--bg); padding: 56px 72px;
+  align-items: stretch; justify-content: flex-start; overflow-y: auto;
+}
+.sumHead { display: flex; align-items: flex-start; justify-content: space-between; }
+.sumKicker { font-weight: 600; font-size: 17px; letter-spacing: .34em; text-transform: uppercase; color: var(--text-dim); }
+.sumTitle { font-family: var(--font-display); font-weight: 900; font-size: 80px; line-height: 1; }
+.sumClose {
+  font-weight: 600; font-size: 17px; letter-spacing: .1em; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-brd); padding: 12px 22px; border-radius: 10px;
+}
+.sumStats { display: grid; grid-template-columns: repeat(6,1fr); gap: 20px; margin: 38px 0; }
+.sumStat { background: var(--panel); border: 1px solid var(--panel-brd); border-radius: 16px; padding: 24px; }
+.sumStatV { font-family: var(--font-display); font-weight: 900; font-size: 54px; line-height: 1; color: var(--liveaccent); }
+.sumStatK { font-weight: 600; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim); margin-top: 12px; }
+.sumCols { display: grid; grid-template-columns: 1.1fr 1fr; gap: 30px; align-items: start; }
+.sumPanel { background: var(--panel); border: 1px solid var(--panel-brd); border-radius: 20px; padding: 30px 34px; display: flex; flex-direction: column; }
+.sumPanelT { font-weight: 700; font-size: 18px; letter-spacing: .22em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 22px; }
+.sumTop { display: flex; flex-direction: column; gap: 14px; }
+.sumTopRow {
+  display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 20px; padding: 14px 18px; border-radius: 12px;
+  background: color-mix(in srgb,var(--tc) 8%,transparent); border: 1px solid color-mix(in srgb,var(--tc) 22%,transparent);
+}
+.sumRank { font-family: var(--font-display); font-weight: 900; font-size: 32px; color: var(--tc); width: 34px; }
+.sumTopName { font-family: var(--font-display); font-weight: 800; font-size: 32px; }
+.sumTopTeam { font-weight: 700; font-size: 18px; letter-spacing: .1em; color: var(--text-dim); }
+.sumTopPrice { font-family: var(--font-display); font-weight: 800; font-size: 32px; color: var(--tc); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sumTeams { display: flex; flex-direction: column; gap: 11px; }
+.sumTeamRow { display: grid; grid-template-columns: auto 1fr auto auto auto; align-items: center; gap: 14px; padding: 10px 16px; border-radius: 12px; background: color-mix(in srgb,var(--text) 4%,transparent); }
+.sumTeamName { font-family: var(--font-display); font-weight: 800; font-size: 26px; }
+.sumTeamCount { font-weight: 600; font-size: 17px; color: var(--text-dim); }
+.sumTeamSpent { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--tc); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sumTeamLeft { font-weight: 600; font-size: 16px; color: var(--text-dim); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ── PHASE BREAKDOWN ─────────────────────────────────────────────────────── */
+.sumPhaseDivider { border-top: 1px solid var(--panel-brd); margin-top: 36px; padding-top: 32px; }
+.sumPhaseSection { border-top: 1px solid var(--panel-brd); padding-top: 24px; margin-top: 24px; }
+.sumPhaseSection:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+.sumPhaseLabel { font-weight: 700; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; }
+.sumPhaseMeta { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 18px; }
+.sumPhaseMetaStat { font-size: 16px; color: var(--text-dim); font-weight: 600; }
+.sumPhaseMetaV { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--text); margin-right: 5px; }
+.sumPhaseMetaAccent { color: var(--liveaccent); }
+.sumPhasePlayerList { display: flex; flex-direction: column; gap: 6px; }
+.sumPhasePlayerRow { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 20px; padding: 10px 18px; background: color-mix(in srgb, var(--text) 4%, transparent); border-radius: 10px; }
+.sumPhasePlayerName { font-weight: 700; font-size: 20px; }
+.sumPhasePlayerTeam { font-size: 16px; color: var(--text-dim); font-weight: 600; white-space: nowrap; }
+.sumPhasePlayerSold { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--liveaccent); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sumPhasePlayerUnsold { font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--text-dim); background: color-mix(in srgb, var(--text) 8%, transparent); border-radius: 6px; padding: 3px 10px; }
